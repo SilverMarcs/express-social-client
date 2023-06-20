@@ -1,4 +1,3 @@
-// this ensures src is our root directory so our imports are cleaner
 {
   "compilerOptions": {
     "baseUrl": "src"
