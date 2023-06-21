@@ -8,6 +8,7 @@ const initialState = {
   posts: [],
 };
 
+// createSlice() is a function that takes in an object of reducers, a name, and an initial state, and automatically generates action creators and action types that correspond to the reducers and state.
 export const authSlice = createSlice({
   name: "auth",
   initialState,
