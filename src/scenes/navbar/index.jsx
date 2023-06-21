@@ -89,6 +89,7 @@ const Navbar = () => {
           <FormControl variant="standard" value={fullName}>
             <Select
               value={fullName}
+              renderValue={() => <Typography>{fullName}</Typography>}
               sx={{
                 backgroundColor: neutralLight,
                 width: "150px",
@@ -104,8 +105,8 @@ const Navbar = () => {
               }}
               input={<InputBase />}
             >
-              <MenuItem value={fullName}>
-                <Typography>{fullName}</Typography>
+              <MenuItem value="profile">
+                <Typography>Profile</Typography>
               </MenuItem>
               <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
             </Select>
