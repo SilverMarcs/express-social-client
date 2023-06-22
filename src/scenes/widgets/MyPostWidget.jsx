@@ -68,7 +68,7 @@ const MyPostWidget = ({ picturePath }) => {
           sx={{
             width: "100%",
             backgroundColor: palette.neutral.light,
-            borderRadius: "2rem",
+            borderRadius: "0.65rem",
             padding: "1rem 2rem",
           }}
         />
@@ -125,7 +125,7 @@ const MyPostWidget = ({ picturePath }) => {
           <ImageOutlined sx={{ color: mediumMain }} />
           <Typography
             color={mediumMain}
-            sx={{ "&:hover": { cursor: "pointer", color: medium } }}
+            sx={{ "&:hover": { cursor: "pointer" } }} // TODO fix hover color
           >
             Image
           </Typography>
