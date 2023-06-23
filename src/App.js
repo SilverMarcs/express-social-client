@@ -3,9 +3,9 @@ import { createTheme } from "@mui/material/styles";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import HomePage from "scenes/homePage";
-import LoginPage from "scenes/loginPage";
-import ProfilePage from "scenes/profilePage";
+import HomePage from "scenes/homePage/HomePage";
+import LoginPage from "scenes/loginPage/LoginPage";
+import ProfilePage from "scenes/profilePage/ProfilePage";
 import { themeSettings } from "./theme";
 
 function App() {
