@@ -32,7 +32,7 @@ const LoginPage = () => {
         >
           You must be a Psycopath to be here
         </Typography>
-        <Form></Form>
+        <Form />
       </Box>
     </Box>
   );

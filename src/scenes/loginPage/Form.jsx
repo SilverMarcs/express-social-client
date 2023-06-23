@@ -298,7 +298,7 @@ const Form = () => {
                 },
               }}
             >
-              {isLogin ? "Sign up" : "Login"} instead
+              {isLogin ? "Sign up here" : "Login here"}
             </Typography>
           </Box>
         </form>
