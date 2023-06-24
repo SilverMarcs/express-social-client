@@ -21,7 +21,7 @@ const PostWidget = ({
   picturePath,
   userPicturePath,
   likes,
-  // comments,
+  comments,
 }) => {
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
@@ -87,7 +87,7 @@ const PostWidget = ({
             <IconButton onClick={() => setIsComments(!isComments)}>
               <ChatBubbleOutlineOutlined />
             </IconButton>
-            {/* <Typography>{comments.length}</Typography> //TODO*/}
+            <Typography>{comments && comments.length}</Typography>
           </FlexBetween>
         </FlexBetween>
 
@@ -95,7 +95,7 @@ const PostWidget = ({
           <ShareOutlined />
         </IconButton>
       </FlexBetween>
-      {/* {isComments && (
+      {isComments && (
         <Box mt="0.5rem">
           {comments.map((comment, i) => (
             <Box key={`${name}-${i}`}>
@@ -107,7 +107,7 @@ const PostWidget = ({
           ))}
           <Divider />
         </Box>
-      )} //TODO */}
+      )}
     </WidgetWrapper>
   );
 };
