@@ -4,9 +4,17 @@ import {
   FavoriteOutlined,
   ShareOutlined,
 } from "@mui/icons-material";
-import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material"; // eslint-disable-line no-unused-vars
+import {
+  Box,
+  Divider,
+  IconButton,
+  InputBase,
+  Typography,
+  useTheme,
+} from "@mui/material"; // eslint-disable-line no-unused-vars
 import FlexBetween from "components/FlexBetween";
 import Friend from "components/Friend";
+import UserImage from "components/UserImage";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,6 +37,7 @@ const PostWidget = ({
   const loggedInUserId = useSelector((state) => state.user._id);
   const isLiked = Boolean(likes[loggedInUserId]);
   const likeCount = Object.keys(likes).length;
+  const [commentBoxText, setCommentBoxText] = useState("");
 
   const { palette } = useTheme();
   const main = palette.neutral.main;
@@ -48,6 +57,27 @@ const PostWidget = ({
     );
     const updatedPost = await response.json();
     dispatch(setPost({ post: updatedPost }));
+  };
+
+  const handleComment = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/posts/${postId}/comments`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: loggedInUserId,
+          postId: postId,
+          commentText: commentBoxText,
+        }),
+      }
+    );
+    const updatedPost = await response.json();
+    dispatch(setPost({ post: updatedPost }));
+    setCommentBoxText("");
   };
 
   return (
@@ -100,12 +130,25 @@ const PostWidget = ({
           {comments.map((comment, i) => (
             <Box key={`${name}-${i}`}>
               <Divider />
-              <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-                {comment}
-              </Typography>
+              <FlexBetween>
+                <UserImage image={comment.userPicturePath} />
+                <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
+                  {comment.commentText}
+                </Typography>
+              </FlexBetween>
             </Box>
           ))}
           <Divider />
+          <FlexBetween>
+            <InputBase
+              placeholder="Write a comment"
+              onChange={(e) => setCommentBoxText(e.target.value)}
+              value={commentBoxText}
+            />
+            <IconButton onClick={handleComment} disabled={!commentBoxText}>
+              <ChatBubbleOutlineOutlined />
+            </IconButton>
+          </FlexBetween>
         </Box>
       )}
     </WidgetWrapper>

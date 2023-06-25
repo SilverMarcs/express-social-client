@@ -153,7 +153,6 @@ const MyPostWidget = ({ picturePath }) => {
             <MoreHorizOutlined sx={{ color: mediumMain }} />
           </FlexBetween>
         )}
-
         <Button
           disabled={!post}
           onClick={handlePost}
@@ -162,9 +161,7 @@ const MyPostWidget = ({ picturePath }) => {
             backgroundColor: palette.primary.main,
             borderRadius: "3rem",
           }}
-        >
-          POST
-        </Button>
+        />
       </FlexBetween>
     </WidgetWrapper>
   );
