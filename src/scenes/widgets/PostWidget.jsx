@@ -42,6 +42,7 @@ const PostWidget = ({
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const primary = palette.primary.main;
+  const medium = palette.neutral.medium;
 
   const patchLike = async () => {
     const response = await fetch(
@@ -126,19 +127,27 @@ const PostWidget = ({
         </IconButton>
       </FlexBetween>
       {isComments && (
-        <Box mt="0.5rem">
+        <Box mt="1.25rem">
           {comments.map((comment, i) => (
-            <Box key={`${name}-${i}`}>
-              <Divider />
-              <FlexBetween>
-                <UserImage image={comment.userPicturePath} />
-                <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-                  {comment.commentText}
-                </Typography>
-              </FlexBetween>
+            <Box
+              display="flex"
+              alignItems="flex-start"
+              mb={2}
+              key={`${name}-${i}`}
+            >
+              <Box mr={2}>
+                <UserImage image={comment.userPicturePath} size="40px" />
+              </Box>
+              <Box flexGrow={1}>
+                <Box display="flex" alignItems="center">
+                  <Typography fontSize="0.9rem" color={main} fontWeight="bold">
+                    {comment.commenterName}
+                  </Typography>
+                </Box>
+                <Typography color={medium}>{comment.commentText}</Typography>
+              </Box>
             </Box>
           ))}
-          <Divider />
           <FlexBetween>
             <InputBase
               placeholder="Write a comment"
