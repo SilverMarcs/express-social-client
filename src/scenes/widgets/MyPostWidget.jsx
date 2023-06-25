@@ -161,7 +161,9 @@ const MyPostWidget = ({ picturePath }) => {
             backgroundColor: palette.primary.main,
             borderRadius: "3rem",
           }}
-        />
+        >
+          <Typography>POST</Typography>
+        </Button>
       </FlexBetween>
     </WidgetWrapper>
   );

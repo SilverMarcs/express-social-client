@@ -129,35 +129,45 @@ const PostWidget = ({
       {isComments && (
         <Box mt="1.25rem">
           {comments.map((comment, i) => (
-            <Box
-              display="flex"
-              alignItems="flex-start"
-              mb={2}
-              key={`${name}-${i}`}
-            >
-              <Box mr={2}>
-                <UserImage image={comment.userPicturePath} size="40px" />
-              </Box>
-              <Box flexGrow={1}>
-                <Box display="flex" alignItems="center">
-                  <Typography fontSize="0.9rem" color={main} fontWeight="bold">
-                    {comment.commenterName}
-                  </Typography>
+            <Box key={`${name}-${i}`}>
+              <Box display="flex" alignItems="flex-start" mb={1} mt={1}>
+                <Box mr={2}>
+                  <UserImage image={comment.userPicturePath} size="40px" />
                 </Box>
-                <Typography color={medium}>{comment.commentText}</Typography>
+                <Box flexGrow={1}>
+                  <Box display="flex" alignItems="center">
+                    <Typography
+                      fontSize="0.9rem"
+                      color={main}
+                      fontWeight="bold"
+                    >
+                      {comment.commenterName}
+                    </Typography>
+                  </Box>
+                  <Typography color={medium}>{comment.commentText}</Typography>
+                </Box>
               </Box>
+              {i < comments.length - 1 && <Divider />}
             </Box>
           ))}
-          <FlexBetween>
+          <Box display="flex" alignItems="center" mt="1rem">
             <InputBase
               placeholder="Write a comment"
               onChange={(e) => setCommentBoxText(e.target.value)}
               value={commentBoxText}
+              sx={{
+                width: "100%",
+                borderBottom: `1px solid ${medium}`,
+              }}
             />
-            <IconButton onClick={handleComment} disabled={!commentBoxText}>
+            <IconButton
+              onClick={handleComment}
+              disabled={!commentBoxText}
+              sx={{ flexGrow: 0 }}
+            >
               <ChatBubbleOutlineOutlined />
             </IconButton>
-          </FlexBetween>
+          </Box>
         </Box>
       )}
     </WidgetWrapper>
