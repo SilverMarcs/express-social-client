@@ -1,4 +1,5 @@
 import Autocomplete from "@mui/material/Autocomplete";
+import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -44,16 +45,25 @@ const SearchBox = () => {
         freeSolo
         onInputChange={(_, value) => handleSearch(value)}
         options={options}
-        getOptionLabel={(option) =>
-          typeof option === "string"
-            ? option
-            : `${option.firstName} ${option.lastName}`
-        }
+        getOptionLabel={(option) => ""}
         renderInput={(params) => (
           <TextField {...params} label="Search users by first name" />
         )}
       />
-      {searchResults}
+      {searchResults.length > 0 && (
+        <Paper
+          sx={{
+            position: "absolute",
+            zIndex: 1,
+            maxHeight: "50vh",
+            overflowY: "auto",
+            width: "20rem",
+            padding: "0.5rem",
+          }}
+        >
+          {searchResults}
+        </Paper>
+      )}
     </div>
   );
 };

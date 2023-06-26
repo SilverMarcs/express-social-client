@@ -15,21 +15,12 @@ const SearchUserWidget = ({
 }) => {
   const navigate = useNavigate();
 
-  console.log(
-    "SearchUserWidget",
-    _id,
-    firstName,
-    lastName,
-    subtitle,
-    picturePath
-  );
-
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
 
   return (
-    <FlexBetween>
+    <FlexBetween padding={1}>
       <FlexBetween gap="1rem">
         <UserImage image={picturePath} size="55px" />
         <Box
