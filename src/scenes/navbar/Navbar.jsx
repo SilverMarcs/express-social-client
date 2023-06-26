@@ -24,6 +24,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setLogout, setMode } from "state";
+import SearchBox from "./SearchBox";
 
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
@@ -65,7 +66,7 @@ const Navbar = () => {
             gap="3rem"
             padding="0.1rem 1.5rem"
           >
-            <InputBase placeholder="Search..." />
+            <SearchBox />
             <IconButton>
               <Search />
             </IconButton>
@@ -105,7 +106,7 @@ const Navbar = () => {
               }}
               input={<InputBase />}
             >
-              <MenuItem value="profile">
+              <MenuItem value={fullName}>
                 <Typography>Profile</Typography>
               </MenuItem>
               <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
