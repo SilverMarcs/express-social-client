@@ -1,8 +1,8 @@
-import { useTheme } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import SearchUserWidget from "scenes/widgets/SearchUserWidget";
 
@@ -10,10 +10,11 @@ const SearchBox = () => {
   const [options, setOptions] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const token = useSelector((state) => state.token);
-  const theme = useTheme();
-  const neutralLight = theme.palette.neutral.light;
-  const alt = theme.palette.background.alt;
-  const medium = theme.palette.neutral.medium;
+
+  const [open, setOpen] = useState(false);
+  const handleClickAway = () => {
+    setOpen(false);
+  };
 
   const handleSearch = async (firstName) => {
     if (firstName) {
@@ -51,6 +52,9 @@ const SearchBox = () => {
         onInputChange={(_, value) => handleSearch(value)}
         options={options}
         getOptionLabel={(option) => ""}
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
         sx={{ width: "20rem" }}
         renderInput={(params) => (
           <TextField
@@ -67,7 +71,7 @@ const SearchBox = () => {
           />
         )}
       />
-      {searchResults.length > 0 && (
+      {searchResults.length > 0 && open && (
         <Paper
           sx={{
             position: "absolute",
