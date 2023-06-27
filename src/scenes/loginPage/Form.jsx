@@ -26,7 +26,7 @@ const registerSchema = yup.object().shape({
     .required("Password is required"),
   location: yup.string().required("Location is required"),
   occupation: yup.string().required("Occupation is required"),
-  picture: yup.mixed(),
+  // picture: yup.mixed(),
 });
 
 const loginSchema = yup.object().shape({
@@ -44,7 +44,7 @@ const initialValuesRegister = {
   password: "",
   location: "",
   occupation: "",
-  picture: "",
+  // picture: "",
 };
 
 const initialValuesLogin = {
@@ -69,7 +69,7 @@ const Form = () => {
     for (let value in values) {
       formData.append(value, values[value]);
     }
-    formData.append("picturePath", values.picture.name); // picturePath is the name of the field in the backend
+    // formData.append("picturePath", values.picture.name); // picturePath is the name of the field in the backend
 
     // we use this func to send the data to the backend to register the user
     const savedUserResponse = await fetch(
@@ -203,7 +203,7 @@ const Form = () => {
                   }}
                 />
 
-                <Box
+                {/* <Box
                   gridColumn="span 4"
                   border={`1px solid ${palette.neutral.medium}`}
                   borderRadius="5px"
@@ -239,7 +239,7 @@ const Form = () => {
                       </Box>
                     )}
                   </Dropzone>
-                </Box>
+                </Box> */}
               </>
             )}
             {/* login + register is the same until here. next is just login */}
