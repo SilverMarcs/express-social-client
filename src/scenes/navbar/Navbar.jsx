@@ -106,7 +106,10 @@ const Navbar = () => {
               }}
               input={<InputBase />}
             >
-              <MenuItem value={fullName}>
+              <MenuItem
+                value={fullName}
+                onClick={() => navigate(`/profile/${user._id}`)}
+              >
                 <Typography>Profile</Typography>
               </MenuItem>
               <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
