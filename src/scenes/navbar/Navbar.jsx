@@ -64,12 +64,12 @@ const Navbar = () => {
             backgroundColor={neutralLight}
             borderRadius="9px"
             gap="3rem"
-            padding="0.1rem 1.5rem"
+            // padding="0.1rem 1.5rem"
           >
             <SearchBox />
-            <IconButton>
+            {/* <IconButton>
               <Search />
-            </IconButton>
+            </IconButton> */}
           </FlexBetween>
         )}
       </FlexBetween>

@@ -1,3 +1,4 @@
+import { useTheme } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
@@ -9,6 +10,10 @@ const SearchBox = () => {
   const [options, setOptions] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const token = useSelector((state) => state.token);
+  const theme = useTheme();
+  const neutralLight = theme.palette.neutral.light;
+  const alt = theme.palette.background.alt;
+  const medium = theme.palette.neutral.medium;
 
   const handleSearch = async (firstName) => {
     if (firstName) {
@@ -46,8 +51,20 @@ const SearchBox = () => {
         onInputChange={(_, value) => handleSearch(value)}
         options={options}
         getOptionLabel={(option) => ""}
+        sx={{ width: "20rem" }}
         renderInput={(params) => (
-          <TextField {...params} label="Search users by first name" />
+          <TextField
+            {...params}
+            placeholder="Search users by first name"
+            InputProps={{
+              ...params.InputProps,
+              disableUnderline: true,
+              sx: {
+                borderRadius: "9px",
+                padding: "0.5rem",
+              },
+            }}
+          />
         )}
       />
       {searchResults.length > 0 && (

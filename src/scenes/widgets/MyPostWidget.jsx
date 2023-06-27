@@ -23,7 +23,7 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import Dropzone from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
-import { setPosts } from "state";
+import state, { setPosts } from "state";
 
 const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
@@ -36,6 +36,8 @@ const MyPostWidget = ({ picturePath }) => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
+  const mode = useSelector((state) => state.mode);
+  const borderColor = mode === "light" ? "#B9B9B9" : "#626262";
 
   const handlePost = async () => {
     const formData = new FormData();
@@ -70,6 +72,7 @@ const MyPostWidget = ({ picturePath }) => {
             backgroundColor: palette.neutral.light,
             borderRadius: "0.65rem",
             padding: "1rem 2rem",
+            border: `1px solid ${borderColor}}`,
           }}
         />
       </FlexBetween>
