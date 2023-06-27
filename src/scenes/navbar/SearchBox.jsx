@@ -1,10 +1,10 @@
 import Autocomplete from "@mui/material/Autocomplete";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
+import Friend from "components/Friend";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import SearchUserWidget from "scenes/widgets/SearchUserWidget";
 
 const SearchBox = () => {
   const [options, setOptions] = useState([]);
@@ -12,9 +12,6 @@ const SearchBox = () => {
   const token = useSelector((state) => state.token);
 
   const [open, setOpen] = useState(false);
-  const handleClickAway = () => {
-    setOpen(false);
-  };
 
   const handleSearch = async (firstName) => {
     if (firstName) {
@@ -29,14 +26,19 @@ const SearchBox = () => {
       setOptions(data);
 
       const results = data.map((option) => (
-        <SearchUserWidget
+        <Box
           key={option._id}
-          _id={option._id}
-          firstName={option.firstName}
-          lastName={option.lastName}
-          subtitle={option.occupation}
-          picturePath={option.picturePath}
-        />
+          sx={{
+            padding: "0.5rem",
+          }}
+        >
+          <Friend
+            friendId={option._id}
+            name={`${option.firstName} ${option.lastName}`}
+            subtitle={option.occupation}
+            userPicturePath={option.picturePath}
+          />
+        </Box>
       ));
       setSearchResults(results);
     } else {
@@ -62,7 +64,6 @@ const SearchBox = () => {
             placeholder="Search users by first name"
             InputProps={{
               ...params.InputProps,
-              //   disableUnderline: true,
               sx: {
                 borderRadius: "9px",
                 padding: "0.5rem",
@@ -79,7 +80,7 @@ const SearchBox = () => {
             maxHeight: "50vh",
             overflowY: "auto",
             width: "20rem",
-            padding: "0.5rem",
+            padding: "0.75rem",
           }}
         >
           {searchResults}
