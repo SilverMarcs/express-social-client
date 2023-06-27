@@ -62,7 +62,7 @@ const SearchBox = () => {
             placeholder="Search users by first name"
             InputProps={{
               ...params.InputProps,
-              disableUnderline: true,
+              //   disableUnderline: true,
               sx: {
                 borderRadius: "9px",
                 padding: "0.5rem",
@@ -71,7 +71,7 @@ const SearchBox = () => {
           />
         )}
       />
-      {searchResults.length > 0 && open && (
+      {searchResults.length > 0 && (
         <Paper
           sx={{
             position: "absolute",
