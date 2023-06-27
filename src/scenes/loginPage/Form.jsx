@@ -26,7 +26,7 @@ const registerSchema = yup.object().shape({
     .required("Password is required"),
   location: yup.string().required("Location is required"),
   occupation: yup.string().required("Occupation is required"),
-  picture: yup.string().required("Picture is required"),
+  picture: yup.mixed(),
 });
 
 const loginSchema = yup.object().shape({
