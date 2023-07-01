@@ -26,7 +26,7 @@ const registerSchema = yup.object().shape({
     .required("Password is required"),
   location: yup.string().required("Location is required"),
   occupation: yup.string().required("Occupation is required"),
-  picture: yup.string().required("Picture is required"),
+  picture: yup.string(),
 });
 
 const loginSchema = yup.object().shape({
@@ -69,7 +69,7 @@ const Form = () => {
     for (let value in values) {
       formData.append(value, values[value]);
     }
-    formData.append("picturePath", values.picture.name); // picturePath is the name of the field in the backend
+    formData.append("picturePath", values.picture ? values.picture.name : "empty.jpeg"); // picturePath is the name of the field in the backend
 
     // we use this func to send the data to the backend to register the user
     const savedUserResponse = await fetch(
