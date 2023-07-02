@@ -23,7 +23,7 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import Dropzone from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
-import state, { setPosts } from "state";
+import { setPosts } from "state";
 
 const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ const MyPostWidget = ({ picturePath }) => {
     const posts = await response.json();
     dispatch(setPosts({ posts }));
     setImage(null);
-    setIsImage(!isImage)
+    setIsImage(!isImage);
     setPost("");
   };
 
