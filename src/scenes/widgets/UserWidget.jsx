@@ -40,7 +40,7 @@ const UserWidget = ({ userId, picturePath }) => {
     );
     const data = await response.json();
     setUser(data);
-    setLoading(false);
+    setLoading(false); // Set loading to false after user data is fetched
   };
 
   useEffect(() => {
@@ -50,7 +50,16 @@ const UserWidget = ({ userId, picturePath }) => {
 
   if (loading) {
     // If loading is true, display the spinner
-    return <CircularProgress />;
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="50vh"
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   // replace with a loading component
