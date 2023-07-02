@@ -4,7 +4,13 @@ import {
   ManageAccountsOutlined,
   WorkOutlineOutlined,
 } from "@mui/icons-material";
-import { Box, Divider, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Divider,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import UserImage from "components/UserImage";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -14,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserWidget = ({ userId, picturePath }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { palette } = useTheme();
   const navigate = useNavigate();
   const token = useSelector((state) => state.token);
@@ -33,11 +40,18 @@ const UserWidget = ({ userId, picturePath }) => {
     );
     const data = await response.json();
     setUser(data);
+    setLoading(false);
   };
+
   useEffect(() => {
     getUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // when this area is rendered, getUser() is called. useEffect is a hook that is called when the component is rendered. The empty array at the end means that it will only be called once. If you put a variable in the array, it will be called every time that variable changes.
+
+  if (loading) {
+    // If loading is true, display the spinner
+    return <CircularProgress />;
+  }
 
   // replace with a loading component
   if (!user) {
