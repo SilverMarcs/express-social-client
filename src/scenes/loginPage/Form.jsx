@@ -2,6 +2,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import {
   Box,
   Button,
+  CircularProgress,
   TextField,
   Typography,
   useMediaQuery,
@@ -61,6 +62,9 @@ const Form = () => {
   const isLogin = pageType === "login"; // convenience var
   const isRegister = pageType === "register"; // convenience var
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [incorrectLogin, setIncorrectLogin] = useState(false);
+
   const register = async (values, onSubmitProps) => {
     // values are  the values we get in the TextFields below
     // onSubmitProps are the props that Formik gives us
@@ -69,7 +73,10 @@ const Form = () => {
     for (let value in values) {
       formData.append(value, values[value]);
     }
-    formData.append("picturePath", values.picture ? values.picture.name : "empty.jpeg"); // picturePath is the name of the field in the backend
+    formData.append(
+      "picturePath",
+      values.picture ? values.picture.name : "empty.jpeg"
+    ); // picturePath is the name of the field in the backend
 
     // we use this func to send the data to the backend to register the user
     const savedUserResponse = await fetch(
@@ -88,6 +95,7 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
+    setIsLoading(true);
     const loggedInResponse = await fetch(
       `${process.env.REACT_APP_API_URL}/auth/login`,
       {
@@ -98,9 +106,13 @@ const Form = () => {
     );
 
     const loggedIn = await loggedInResponse.json();
-    onSubmitProps.resetForm();
 
-    if (loggedIn) {
+    if (
+      loggedIn &&
+      loggedIn.msg !== "User not found" &&
+      loggedIn.msg !== "Invalid credentials"
+    ) {
+      setIncorrectLogin(false);
       dispatch(
         // sending payload to the state. see reference
         setLogin({
@@ -109,6 +121,11 @@ const Form = () => {
         })
       );
       navigate("/home");
+      onSubmitProps.resetForm();
+    } else {
+      setIsLoading(false);
+      setIncorrectLogin(true);
+      onSubmitProps.resetForm();
     }
   };
 
@@ -270,6 +287,15 @@ const Form = () => {
               }}
             />
           </Box>
+          <Typography
+            color="error"
+            sx={{
+              textAlign: "center",
+              mt: "1rem",
+            }}
+          >
+            {incorrectLogin && "Incorrect email or password"}
+          </Typography>
           {/* Buttons */}
           <Box>
             <Button
@@ -285,7 +311,13 @@ const Form = () => {
                 },
               }}
             >
-              {isLogin ? "Login" : "Register"}
+              {isLoading ? (
+                <CircularProgress size={24} color="secondary" />
+              ) : isLogin ? (
+                "Login"
+              ) : (
+                "Register"
+              )}
             </Button>
             <Typography
               onClick={() => {
