@@ -66,6 +66,7 @@ const Form = () => {
   const [incorrectLogin, setIncorrectLogin] = useState(false);
 
   const register = async (values, onSubmitProps) => {
+    setIsLoading(true);
     const { picture, ...rest } = values; // Destructure picture from values
     const formData = new FormData();
     for (let value in rest) {
@@ -86,6 +87,7 @@ const Form = () => {
 
     if (savedUser) {
       setPageType("login");
+      setIsLoading(false);
     }
   };
 
