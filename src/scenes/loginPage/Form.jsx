@@ -27,7 +27,7 @@ const registerSchema = yup.object().shape({
     .required("Password is required"),
   location: yup.string().required("Location is required"),
   occupation: yup.string().required("Occupation is required"),
-  picture: yup.string().required("Picture is required"),
+  picture: yup.string(),
 });
 
 const loginSchema = yup.object().shape({
@@ -71,9 +71,8 @@ const Form = () => {
     for (let value in rest) {
       formData.append(value, rest[value]);
     }
-    if (picture) {
-      formData.append("picture", picture); // Add the image file to the form data
-    }
+
+    formData.append("picture", picture);
 
     const savedUserResponse = await fetch(
       `${process.env.REACT_APP_API_URL}/auth/register`,
