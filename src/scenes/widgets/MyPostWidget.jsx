@@ -163,6 +163,12 @@ const MyPostWidget = ({ picturePath }) => {
             color: palette.background.alt,
             backgroundColor: palette.primary.main,
             borderRadius: "3rem",
+            "&:disabled": {
+              backgroundColor: palette.neutral.light,
+            },
+            "&:hover": {
+              backgroundColor: palette.primary.dark,
+            },
           }}
         >
           <Typography>POST</Typography>
