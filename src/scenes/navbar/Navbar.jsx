@@ -63,7 +63,7 @@ const Navbar = () => {
             backgroundColor={neutralLight}
             borderRadius="9px"
             gap="3rem"
-          // padding="0.1rem 1.5rem"
+            // padding="0.1rem 1.5rem"
           >
             <SearchBox />
             {/* <IconButton>
@@ -89,7 +89,6 @@ const Navbar = () => {
           <FormControl variant="standard" value={fullName}>
             <Select
               value={fullName}
-              renderValue={() => <Typography>{fullName}</Typography>}
               sx={{
                 backgroundColor: neutralLight,
                 width: "150px",
