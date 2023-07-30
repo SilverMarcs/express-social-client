@@ -27,7 +27,7 @@ const registerSchema = yup.object().shape({
     .required("Password is required"),
   location: yup.string().required("Location is required"),
   occupation: yup.string().required("Occupation is required"),
-  picture: yup.string(),
+  picture: yup.string().required("Picture is required"),
 });
 
 const loginSchema = yup.object().shape({
@@ -66,19 +66,15 @@ const Form = () => {
   const [incorrectLogin, setIncorrectLogin] = useState(false);
 
   const register = async (values, onSubmitProps) => {
-    // values are  the values we get in the TextFields below
-    // onSubmitProps are the props that Formik gives us
-    // we cant pass values directly because w ehave a picture input that need to handle
+    const { picture, ...rest } = values; // Destructure picture from values
     const formData = new FormData();
-    for (let value in values) {
-      formData.append(value, values[value]);
+    for (let value in rest) {
+      formData.append(value, rest[value]);
     }
-    formData.append(
-      "picturePath",
-      values.picture ? values.picture.name : "empty.jpeg"
-    ); // picturePath is the name of the field in the backend
+    if (picture) {
+      formData.append("picture", picture); // Add the image file to the form data
+    }
 
-    // we use this func to send the data to the backend to register the user
     const savedUserResponse = await fetch(
       `${process.env.REACT_APP_API_URL}/auth/register`,
       {
@@ -87,7 +83,7 @@ const Form = () => {
       }
     );
     const savedUser = await savedUserResponse.json();
-    onSubmitProps.resetForm(); // this is a func that Formik gives us to reset the form
+    onSubmitProps.resetForm();
 
     if (savedUser) {
       setPageType("login");
@@ -229,6 +225,13 @@ const Form = () => {
                   <Dropzone
                     acceptedFiles={[".jpg", ".png", ".jpeg"]}
                     multiple={false}
+                    maxSize={3145728} // 3 MB in bytes
+                    onDropRejected={(fileRejections) => {
+                      setFieldValue(
+                        "errorMessage",
+                        "File size exceeds the maximum limit of 3 MB!"
+                      );
+                    }}
                     onDrop={(acceptedFiles) => {
                       setFieldValue("picture", acceptedFiles[0]); // picture is the name of the field we set earlier
                     }}
@@ -294,7 +297,7 @@ const Form = () => {
               mt: "1rem",
             }}
           >
-            {incorrectLogin && "Incorrect email or password"}
+            {incorrectLogin && isLogin && "Incorrect email or password"}
           </Typography>
           {/* Buttons */}
           <Box>
@@ -322,6 +325,7 @@ const Form = () => {
             <Typography
               onClick={() => {
                 setPageType(isLogin ? "register" : "login");
+                setIncorrectLogin(false);
                 resetForm();
               }}
               sx={{
