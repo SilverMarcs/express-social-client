@@ -20,7 +20,7 @@ const AdvertWidget = () => {
         width="100%"
         height="auto"
         alt="advert"
-        src={`${process.env.REACT_APP_API_URL}/assets/info4.jpeg`}
+        src="https://res.cloudinary.com/dqk09fmmp/image/upload/v1690957951/info4_giivnq.jpg"
         style={{ borderRadius: "0.75rem", margin: "0.75rem 0" }}
       />
       <FlexBetween>
