@@ -33,6 +33,13 @@ const LoginPage = () => {
           You must be a Psycopath to be here
         </Typography>
         <Form />
+        <Typography
+          sx={{ mt: 2, fontStyle: "italic", fontSize: "14px" }}
+          color={theme.palette.neutral.medium}
+        >
+          Test login credentials - username: tester@tester.com password:
+          12345678
+        </Typography>
       </Box>
     </Box>
   );
