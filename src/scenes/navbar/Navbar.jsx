@@ -56,7 +56,7 @@ const Navbar = () => {
             },
           }}
         >
-          Psycopedia
+          SocioVerse
         </Typography>
         {isNonMobileScreens && (
           <FlexBetween
